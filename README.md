@@ -1,2 +1,2 @@
 # GreenAmptWettingFront
-Function to calculate the wetting front parameter in Green Ampt infiltration model
+Function to calculate the wetting front matric potential parameter in Green Ampt infiltration model
