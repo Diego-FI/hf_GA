@@ -7,8 +7,8 @@ No external R packages are required. The function relies exclusively on base R.
 
 ## Dataset Requirements
 To process your own dataset, ensure your `.csv` file contains at least the following columns with exact or corresponding names in your code:
-* `Alpha`: Empirical parameter [1/cm]
-* `N`: Empirical parameter [-]
+* `Alpha`: Model parameter [1/cm]
+* `N`: Model parameter [-]
 * `Ks`: Saturated hydraulic conductivity [cm/h]
 * `Theta_r`: Residual volumetric water content [cm3/cm3]
 * `Theta_s`: Saturated volumetric water content [cm3/cm3]
