@@ -1,94 +1,102 @@
-# Based on the methodology shown in doi:
-#
+# ================================================================================
+# Polynomial Model for Green-Ampt Wetting Front Suction (hf)
+# ================================================================================
 # Units:
-# time [hours]
-# length [centimeters]
+# - Time: [hours]
+# - Length: [centimeters]
 #
-# Parameters from Van-Genuchten Mualem model:
-# Alpha, N, Theta_r (residual volumetric water content), Theta_s (saturated volumetric water content) and Ks (Saturated hydraulic conductivity) 
-# H0 is the initial pressure head in the soil
+# Inputs (Van Genuchten-Mualem parameters & Initial Condition):
+# - Alpha   : Model parameter [1/cm]
+# - N       : Model parameter [-]
+# - Ks      : Saturated hydraulic conductivity [cm/h]
+# - Theta_r : Residual volumetric water content [cm3/cm3]
+# - Theta_s : Saturated volumetric water content [cm3/cm3]
+# - H0      : Initial pressure head (suction) in the soil [cm]
+# ================================================================================
+
+
+# ================================================================================
+# USER GUIDANCE FOR SPREADSHEETS:
+# To use your own dataset (e.g., from Excel or a CSV file), ensure your table 
+# contains at least the following columns: Alpha, N, Ks, Theta_r, Theta_s, and H0.
+# 
+# If you are using a standard template (like the output from Rosetta) that 
+# includes Sand, Silt, Clay, and L, you MUST add a column for the initial 
+# suction (H0) or specify it manually in the code.
 #
-# Modify the data vector in order to obtain the wetting front pressure head
-#
+# You can load your dataset using:
+# data <- read.csv("your_spreadsheet.csv")
+# The following data were obtained by using Rosetta 3 on the granulometric content
+# and H0 were assigned randomly
+# ================================================================================
+
+data <- read.csv("data.csv")
+
+
+
 GAhf <- function(Alpha, H0, N, Ks, Theta_r, Theta_s) {
-  hf <-  (0.257992124)+
-    (3.6639177)*log10(H0)+
-    (6.209447065)*log10(Alpha)*log10(Alpha)*log10(H0)+
-    (109.5807167)*log10(N -1)*log10(Alpha)*log10(Alpha)+
-    (-103.8440904)*log10(N -1)*log10(N -1)*log10(Alpha)+
-    (26.17805337)*log10(Alpha)*log10(H0)*Theta_s+
-    (737.5485544)*log10(N -1)*log10(Alpha)*Theta_s+
-    (4.424545359)*log10(Alpha)*log10(H0)*log10(Ks)+
-    (5.393971588)*log10(Alpha)*log10(Alpha)*log10(Alpha)+
-    (-25.73899107)*log10(Alpha)+
-    (-340.4432335)*log10(N -1)*log10(N -1)*Theta_s+
-    (11.9896582)*log10(H0)*log10(Ks)*Theta_s+
-    (2106.13737)*log10(Alpha)*Theta_r*Theta_s+
-    (677.2188169)*Theta_s*Theta_s*Theta_s+
-    (0.48919711)*log10(Alpha)*log10(H0)*log10(H0)+
-    (2.190502017)*log10(H0)*log10(H0)*Theta_s+
-    (-30.04484145)*log10(N -1)*log10(Alpha)*log10(H0)+
-    (-62.3708493)*log10(N -1)*log10(H0)*Theta_s+
-    (2.349615295)*log10(Alpha)*log10(Alpha)*log10(Ks)+
-    (-6.34078801)*log10(N -1)*log10(H0)*log10(Ks)+
-    (-116.4256693)*log10(N -1)*log10(Ks)*Theta_s+
-    (5.862236641)*log10(N -1)*log10(N -1)*log10(H0)+
-    (-927.7227704)*log10(N -1)*log10(N -1)*Theta_r+
-    (-91.42413112)*log10(N -1)*log10(H0)*Theta_r+
-    (-147.3452681)*log10(H0)*Theta_r*Theta_s+
-    (-9.970466611)*log10(N -1)*log10(Alpha)*log10(Ks)+
-    (-78.89264829)*Theta_s+
-    (-84.18734635)*log10(H0)*log10(Ks)*Theta_r+
-    (1610.939649)*log10(N -1)*Theta_s*Theta_s+
-    (-254.5866249)*log10(Ks)*Theta_s*Theta_s+
-    (-1.825154718)*log10(Ks)*log10(Ks)*log10(Ks)+
-    (-3.243282403)*log10(H0)*log10(Ks)*log10(Ks)+
-    (9.07279062)*log10(Alpha)*log10(Ks)*log10(Ks)+
-    (2836.132296)*log10(Ks)*Theta_r*Theta_s+
-    (22.58195532)*log10(H0)*Theta_s*Theta_s+
-    (-0.136723424)*log10(H0)*log10(H0)*log10(H0)+
-    (0.57061601)*log10(H0)*log10(H0)*log10(Ks)+
-    (5.776482466)*log10(H0)*log10(H0)*Theta_r+
-    (109.6635976)*log10(Ks)*log10(Ks)*Theta_s+
-    (-52.53313495)*log10(Alpha)*log10(Ks)*Theta_r+
-    (-28.52700456)*log10(N -1)*log10(N -1)*log10(N -1)+
-    (-83.08527121)*log10(Alpha)*log10(H0)*Theta_r+
-    (66.42111608)*log10(Alpha)*log10(Alpha)*Theta_s+
-    (266.2006972)*log10(Alpha)*Theta_s*Theta_s+
-    (15.70230269)*log10(N -1)*log10(Ks)*log10(Ks)+
-    (138.9506156)*log10(Alpha)*log10(Alpha)*Theta_r+
-    (-0.457523123)*log10(N -1)*log10(H0)*log10(H0)+
-    (569.8620214)*log10(N -1)*log10(Ks)*Theta_r+
-    (-947.9253433)*log10(H0)*Theta_r*Theta_r+
-    (-5609.400708)*log10(Alpha)*Theta_r*Theta_r+
-    (-31.08133122)*log10(N -1)+
-    (-438.0493588)*Theta_r+
-    (-105674.8747)*Theta_r*Theta_r*Theta_r+
-    (-7197.206984)*log10(Ks)*Theta_r*Theta_r+
-    (25307.00856)*Theta_r*Theta_r*Theta_s+
-    (-6.710298169)*log10(Ks)+
-    (-228.2862275)*log10(Ks)*log10(Ks)*Theta_r+
-    (-5093.647355)*log10(N -1)*Theta_r*Theta_s+
-    (-673.2798219)*log10(N -1)*log10(Alpha)*Theta_r
+  resultado <- ( 284.455341 ) +
+    ( -11.374838 ) * log10(H0) +
+    ( 160.104035 ) * log10(Alpha) +
+    ( -42.518729 ) * log10(N - 1) +
+    ( -1765.721569 ) * Theta_r +
+    ( -946.642876 ) * Theta_s +
+    ( -83.252689 ) * log10(Ks) +
+    ( -24.055371 ) * log10(H0) * log10(Alpha) +
+    ( -71.370994 ) * log10(Alpha) * log10(N - 1) +
+    ( -60.899358 ) * log10(H0) * log10(N - 1) +
+    ( 1929.752476 ) * log10(N - 1) * Theta_r +
+    ( -998.969454 ) * log10(Alpha) * Theta_r +
+    ( -926.365386 ) * log10(H0) * Theta_r +
+    ( 58.714928 ) * log10(H0) * Theta_s +
+    ( -25.983131 ) * log10(H0) * log10(Ks) +
+    ( -492.483093 ) * Theta_r * log10(Ks) +
+    ( 102.414183 ) * log10(N - 1) * log10(Ks) +
+    ( -501.269152 ) * log10(Alpha) * Theta_s +
+    ( 457.031654 ) * Theta_s * log10(Ks) +
+    ( 9530.705118 ) * Theta_r * Theta_s +
+    ( -228.114568 ) * log10(N - 1) * Theta_s +
+    ( -50.274812 ) * log10(Alpha) * log10(Ks) +
+    ( -64.137306 ) * log10(H0) * log10(Alpha) * log10(N - 1) +
+    ( -415.925974 ) * log10(H0) * log10(Alpha) * Theta_r +
+    ( -436.251527 ) * log10(H0) * log10(N - 1) * Theta_r +
+    ( 1491.864853 ) * log10(Alpha) * log10(N - 1) * Theta_r +
+    ( -241.693200 ) * log10(N - 1) * Theta_r * log10(Ks) +
+    ( 47.222309 ) * log10(H0) * log10(Alpha) * Theta_s +
+    ( 12.882255 ) * log10(H0) * Theta_s * log10(Ks) +
+    ( -996.225050 ) * Theta_r * Theta_s * log10(Ks) +
+    ( 122.741807 ) * log10(H0) * Theta_r * Theta_s +
+    ( -62.636978 ) * log10(N - 1) * Theta_s * log10(Ks) +
+    ( 58.748705 ) * log10(Alpha) * log10(N - 1) * Theta_s +
+    ( -425.587283 ) * log10(Alpha) * Theta_r * log10(Ks) +
+    ( 37.077868 ) * log10(Alpha) * log10(N - 1) * log10(Ks) +
+    ( -8.429578 ) * log10(H0) * log10(Alpha) * log10(Ks) +
+    ( 5172.983499 ) * log10(Alpha) * Theta_r * Theta_s +
+    ( 36.719021 ) * log10(H0) * Theta_r * log10(Ks) +
+    ( 250.022469 ) * log10(Alpha) * Theta_s * log10(Ks) +
+    ( 2759.394809 ) * log10(N - 1) * Theta_r * Theta_s
   
-  
-  if (hf <= 1) {
+  if (resultado <= 1) {
     return(1)
-  } else {
-    return(hf)
+  } else if (resultado >= H0){
+    return(H0)
+  }else{
+    return(resultado)}
   }
-} # Function to calculate based on initial pressure head h0 (cm) and VGM parameters (Alpha, N, Ks, Theta_r, Theta_s)
+ 
+# Create the new 'hf' column by applying the function to each row
 
-# data vector to insert parameters
-data <- c(
-  Alpha=0.5,
-  H0 = 100,
-  N = 1.61,
-  Ks = 1.58,
-  Theta_r = 0.045,
-  Theta_s = 0.58)
+data$hf <- mapply(GAhf, 
+                  Alpha = data$Alpha, 
+                  H0 = data$H0, 
+                  N = data$N, 
+                  Ks = data$Ks, 
+                  Theta_r = data$Theta_r, 
+                  Theta_s = data$Theta_s)
 
+# Save the updated table back to the same CSV file
 
-result <- do.call(GAhf, as.list(data))
+write.csv(data, "data_hf.csv", row.names = FALSE)
 
-result #wetting front pressure head calculated
+cat("Done! The 'hf' column has been created and the data_hf.csv file has been created.\n")
+
