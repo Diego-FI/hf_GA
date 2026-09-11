@@ -1,6 +1,6 @@
 # Green-Ampt Wetting Front Suction ($h_f$) Calculator
 
-This repository provides the R script and step-by-step examples to calculate the Green-Ampt wetting front suction parameter ($h_f$) based on the Van Genuchten-Mualem (VGM) hydraulic properties and initial soil pressure head, as proposed in our methodology.
+This repository provides the R script and step-by-step examples to calculate the Green-Ampt wetting front suction parameter ($h_f$) based on the Van Genuchten-Mualem (VGM) hydraulic properties and initial soil pressure head, as proposed in our methodology (https://doi.org/10.1002/saj2.70315).
 
 ## Prerequisites
 No external R packages are required. The function relies exclusively on base R.
