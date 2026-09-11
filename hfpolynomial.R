@@ -12,6 +12,7 @@
 # - Theta_r : Residual volumetric water content [cm3/cm3]
 # - Theta_s : Saturated volumetric water content [cm3/cm3]
 # - H0      : Initial pressure head (suction) in the soil [cm]
+# Article:  https://doi.org/10.1002/saj2.70315
 # ================================================================================
 
 
